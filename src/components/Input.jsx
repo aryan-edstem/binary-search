@@ -1,68 +1,68 @@
-import React from "react";
-import Output from "./Output";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useState } from "react";
+import './binarysearch.css';
 
 const Input = () => {
-    const [inputArray, setInputArray] = useState([]);
-    const [elem,setElem] = useState();
-    const [low, setLow] = useState(0);
-    const [high, setHigh] = useState(0);
-    const [mid,setMid] = useState(0);
+  const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [elem, setElem] = useState("");
+  const [result, setResult] = useState(null);
 
-    const handleInputArray= (e) => {
-        console.log(e.target.value);
-        const textFieldValue = e.target.value;
-        const arrayOfNumbers = textFieldValue.split(',').map(function(item) {
-        return parseInt(item.trim(), 10);
-        });
-        setInputArray(arrayOfNumbers)
-        setLow(0);
-        setHigh(inputArray.length-1);
-        setMid(inputArray.length/2-1);
-        }
+  const binarySearch = (arr, elem) => {
+    let low = 0;
+    let high = arr.length - 1;
 
-    const handleSearchElement= (e) => {
-        const element = e.target.value;
-        setElem(element);
-        }    
+    while (low <= high) {
+      const mid = Math.floor((low + high) / 2);
 
-    const handleSearch = ({inputArray,low,mid,high,elem}) => {
-            console.log("search");
-            console.log(inputArray[mid]);
-            console.log(elem);
-            if(inputArray[mid]==elem){
-                console.log("element found");
-                }
-            else if(elem>array[mid]){
-                setLow(mid);
-                setMid((high-low)/2);
-                console.log(low,mid,"low","mid");
-                }
-            else {
-                setHigh(mid);
-                setMid(high/2);
-                console.log(high,mid,"high","mid");
-                }
-            
-        }
+      if (arr[mid] === elem) {
+        return mid;
+      } else if (arr[mid] < elem) {
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    }
 
-    return(
-        <>
-            <p>Please enter the Sorted Array</p>
-            <input type="textfield" placeholder="Enter the Array" name="input-array" onChange={handleInputArray}></input>
-            <p>Please enter the Element to be Searched</p>
-            <input type="textfield" placeholder="Enter the Element to search" name="search-element" onChange={handleSearchElement}></input> <br/ > <br />
-            <button onClick={handleSearch({inputArray,low,mid,high,elem})}>Search</button>
-            {/* <Output array={array} element={elem}/> */}
-            <p>Output Array : </p>
-            <p>array:{inputArray}</p>
-            <p>low:{inputArray[low]}</p>
-            <p>mid:{inputArray[mid]}</p>
-            <p>high:{inputArray[high]}</p>
-            <p>elem:{elem}</p>
-        </>
-    )
-}
+    return -1;
+  };
 
-export default Input
+  const handleSearch = () => {
+    const targetNumber = parseInt(elem, 10);
+    if (!isNaN(targetNumber)) {
+      const index = binarySearch(array, targetNumber);
+      setResult(index);
+    } else {
+      setResult(null);
+    }
+  };
+
+  return (
+    <div className="container">
+      <div>
+        <label>Sorted Array: {array}</label>
+      </div>
+      <div>
+        <label>Target Element:</label>
+        <input
+          type="text"
+          value={elem}
+          onChange={(e) => setElem(e.target.value)}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+      <div>
+        <div className="array-container">
+          {array.map((value, index) => (
+            <div key={index}  className="array-box">
+              {value}
+            </div>
+          ))}
+        </div>
+        <label>
+          Result: {result !== null ? `Found at index ${result}` : "Not Found"}
+        </label>
+      </div>
+    </div>
+  );
+};
+
+export default Input;
