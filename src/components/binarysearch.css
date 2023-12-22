@@ -3,13 +3,18 @@ body{
     padding: 10px;
 }
 
-.array-container {
+.array-container,.input-container {
     display: flex;
     justify-content: center;
     padding: 50px;
+    width: 75%;
+    height: 50px;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    margin: 50px auto;
   }
   
-  .array-box {
+.array-box {
     width: 30px;
     height: 30px;
     background-color: lightblue;
@@ -21,4 +26,18 @@ body{
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
   }
+
+  .input-box {
+    width: 30px;
+    height: 30px;
+    background-color: lightblue;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+  }
   
+  .inactive{
+    opacity: .25;
+  }
