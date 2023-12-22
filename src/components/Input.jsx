@@ -5,14 +5,14 @@ const Input = () => {
   const [inputArray, setinputArray] = useState()
   const [outputArray, setOutputArray] = useState()
   const [elem, setElem] = useState("");
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState(-1);
   const [left, setLeft] = useState();
   const [right,setRight] = useState();
   const [executionTime, setExecutionTime] = useState(null);
 
   const handleInputArray= (e) => {
-    console.log(e.target.value);
     const textFieldValue = e.target.value;
+    setinputArray(e.target.value);
     setOutputArray(textFieldValue.split(',').map(function(item) {
     return parseInt(item.trim(), 10);
     }));
@@ -27,16 +27,13 @@ const Input = () => {
       const mid = Math.floor((low + high) / 2);
 
       if (arr[mid] === elem) {
-        console.log(mid);
         return mid;
       } else if (arr[mid] < elem) {
         low = mid + 1;
         setLeft(low)
-        console.log(left);
       } else {
         high = mid - 1;
         setRight(high);
-        console.log(high);
       }
     }
 
@@ -46,12 +43,8 @@ const Input = () => {
   const handleSearch = () => {
     const targetNumber = parseInt(elem, 10);
     const start = performance.now();
-    if (!isNaN(targetNumber)) {
-      const index = binarySearch(outputArray, targetNumber);
-      setResult(index);
-    } else {
-      setResult(null);
-    }
+    const index = binarySearch(outputArray, targetNumber);
+    setResult(index);
     const end = performance.now();
     const time = end - start;
     setExecutionTime(time + ' milliseconds');
@@ -89,7 +82,6 @@ const Input = () => {
             <div key={index}  className={`array-box ${index<left || index>right ? 'inactive' :''}`}>
               {value}
             </div>
-
           ))}
         </div>
         <label>
