@@ -1,0 +1,50 @@
+body{
+    text-align: center;
+    padding: 10px;
+}
+
+.array-container{
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+    width: 75%;
+    height: 150px;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    margin: 50px auto;
+  }
+
+  textarea{
+      overflow-y:scroll;
+      width: 500px;
+      height: 100px;
+  }
+
+  .input-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 15px;
+    
+  }
+  
+.array-box {
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+
+.array-box {
+    width: 30px;
+    height: 30px;
+    background-color: lightblue;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+  }
+  
+  .inactive{
+    opacity: .25;
+  }

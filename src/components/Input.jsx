@@ -1,68 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
+import './binarysearch.css';
+import { useDispatch } from "react-redux";
+import { setHigh, setLow,setMid,setArray,setResult,setExecutionTime } from "../redux/BinarySlice";
 import Output from "./Output";
-import { useState } from "react";
-import { useEffect } from "react";
+
 
 const Input = () => {
-    const [inputArray, setInputArray] = useState([]);
-    const [elem,setElem] = useState();
-    const [low, setLow] = useState(0);
-    const [high, setHigh] = useState(0);
-    const [mid,setMid] = useState(0);
+  const [outputArray, setOutputArray] = useState()
+  const [elem, setElem] = useState("");
+  const dispatch = useDispatch();
 
-    const handleInputArray= (e) => {
-        console.log(e.target.value);
-        const textFieldValue = e.target.value;
-        const arrayOfNumbers = textFieldValue.split(',').map(function(item) {
-        return parseInt(item.trim(), 10);
-        });
-        setInputArray(arrayOfNumbers)
-        setLow(0);
-        setHigh(inputArray.length-1);
-        setMid(inputArray.length/2-1);
-        }
+  const handleInputArray= (e) => {
+    const textFieldValue = e.target.value;
+    const testarray = textFieldValue.split(',').map((item) => parseInt(item.trim(), 10));
+    setOutputArray(testarray);
+    dispatch(setArray(testarray));
+    }
 
-    const handleSearchElement= (e) => {
-        const element = e.target.value;
-        setElem(element);
-        }    
+  const binarySearch = (arr, elem) => {
+    dispatch(setArray(outputArray));
+    let low= 0
+    dispatch(setLow(0));
+    let high = arr.length-1
+    dispatch(setHigh(arr.length - 1));
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const searchIteration = async () => {
+    while (low <= high) {
+      let mid = Math.floor((low+high)/2)
+      dispatch(setMid(mid));
+      await delay(500);
+      if (arr[mid] === elem) {
+        dispatch(setLow(mid));
+        dispatch(setHigh(mid));
+        dispatch(setResult(mid));
+        return mid;
+      } else if (arr[mid] < elem) {
+        low = mid + 1;
+        dispatch(setLow(mid+1));
+      } else {
+        high = mid - 1;
+        dispatch(setHigh(mid-1))
+      }
+    }
 
-    const handleSearch = ({inputArray,low,mid,high,elem}) => {
-            console.log("search");
-            console.log(inputArray[mid]);
-            console.log(elem);
-            if(inputArray[mid]==elem){
-                console.log("element found");
-                }
-            else if(elem>array[mid]){
-                setLow(mid);
-                setMid((high-low)/2);
-                console.log(low,mid,"low","mid");
-                }
-            else {
-                setHigh(mid);
-                setMid(high/2);
-                console.log(high,mid,"high","mid");
-                }
-            
-        }
+    return -1;
+    };
+    return searchIteration();
+  };
 
-    return(
-        <>
-            <p>Please enter the Sorted Array</p>
-            <input type="textfield" placeholder="Enter the Array" name="input-array" onChange={handleInputArray}></input>
-            <p>Please enter the Element to be Searched</p>
-            <input type="textfield" placeholder="Enter the Element to search" name="search-element" onChange={handleSearchElement}></input> <br/ > <br />
-            <button onClick={handleSearch({inputArray,low,mid,high,elem})}>Search</button>
-            {/* <Output array={array} element={elem}/> */}
-            <p>Output Array : </p>
-            <p>array:{inputArray}</p>
-            <p>low:{inputArray[low]}</p>
-            <p>mid:{inputArray[mid]}</p>
-            <p>high:{inputArray[high]}</p>
-            <p>elem:{elem}</p>
-        </>
-    )
-}
+  const handleSearch = () => {
+    const targetNumber = parseInt(elem, 10);
+    const start = performance.now();
+    const index = binarySearch(outputArray, targetNumber);
+    setResult(index);
+    const end = performance.now();
+    const time = end - start;
+    dispatch(setExecutionTime(time));
+  };
 
-export default Input
+  return (
+    <div className="container">
+        <div className="input-text">
+            <label>Input Sorted Array</label>
+            <textarea
+            type="textarea"
+            onChange={handleInputArray}
+            />
+        </div>
+      <div>
+        <label>Target Element:</label>
+        <input
+          type="text"
+          value={elem}
+          onChange={(e) => setElem(e.target.value)}
+        /><br/><br/>
+        <button onClick={handleSearch}>Search</button>
+      </div>
+      <Output />
+    </div>
+  );
+};
+
+export default Input;
