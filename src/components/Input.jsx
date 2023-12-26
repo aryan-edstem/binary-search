@@ -23,9 +23,12 @@ const Input = () => {
     dispatch(setLow(0));
     let high = arr.length-1
     dispatch(setHigh(arr.length - 1));
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const searchIteration = async () => {
     while (low <= high) {
       let mid = Math.floor((low+high)/2)
-      dispatch(setMid(Math.floor((low + high) / 2)));
+      dispatch(setMid(mid));
+      await delay(500);
       if (arr[mid] === elem) {
         dispatch(setLow(mid));
         dispatch(setHigh(mid));
@@ -41,6 +44,8 @@ const Input = () => {
     }
 
     return -1;
+    };
+    return searchIteration();
   };
 
   const handleSearch = () => {
