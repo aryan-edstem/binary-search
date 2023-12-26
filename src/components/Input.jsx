@@ -12,7 +12,7 @@ const Input = () => {
 
   const handleInputArray= (e) => {
     const textFieldValue = e.target.value;
-    setinputArray(e.target.value);
+    // setinputArray(e.target.value);
     setOutputArray(textFieldValue.split(',').map(function(item) {
     return parseInt(item.trim(), 10);
     }));
@@ -27,6 +27,8 @@ const Input = () => {
       const mid = Math.floor((low + high) / 2);
 
       if (arr[mid] === elem) {
+        setLeft(mid)
+        setRight(mid);
         return mid;
       } else if (arr[mid] < elem) {
         low = mid + 1;
@@ -56,7 +58,7 @@ const Input = () => {
             <label>Input Sorted Array</label>
             <textarea
             type="textarea"
-            value={inputArray}
+            // value={inputArray}
             onChange={handleInputArray}
             />
         </div>
