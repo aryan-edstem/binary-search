@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import './binarysearch.css';
 
 const Input = () => {
-  const [inputArray, setinputArray] = useState()
   const [outputArray, setOutputArray] = useState()
   const [elem, setElem] = useState("");
   const [result, setResult] = useState(-1);
@@ -12,7 +11,6 @@ const Input = () => {
 
   const handleInputArray= (e) => {
     const textFieldValue = e.target.value;
-    // setinputArray(e.target.value);
     setOutputArray(textFieldValue.split(',').map(function(item) {
     return parseInt(item.trim(), 10);
     }));
@@ -58,17 +56,9 @@ const Input = () => {
             <label>Input Sorted Array</label>
             <textarea
             type="textarea"
-            // value={inputArray}
             onChange={handleInputArray}
             />
         </div>
-        {/* <div className="input-container">
-          {inputArray?.map((value, index) => (
-            <div key={index}  className="input-box ">
-              {value}
-            </div>
-          ))}
-        </div> */}
       <div>
         <label>Target Element:</label>
         <input

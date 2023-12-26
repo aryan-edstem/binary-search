@@ -3,18 +3,18 @@ body{
     padding: 10px;
 }
 
-.array-container,.input-container {
+.array-container{
     display: flex;
     justify-content: center;
     padding: 50px;
     width: 75%;
-    height: 50px;
+    height: 150px;
     flex-wrap: wrap;
     overflow-y: scroll;
     margin: 50px auto;
   }
-  textarea
-  {
+
+  textarea{
       overflow-y:scroll;
       width: 500px;
       height: 100px;
@@ -34,7 +34,7 @@ body{
     transition: opacity 0.5s ease-in-out;
   }
 
-  .input-box, .array-box {
+.array-box {
     width: 30px;
     height: 30px;
     background-color: lightblue;
