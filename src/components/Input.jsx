@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import './binarysearch.css';
 import { useDispatch } from "react-redux";
-import { setHigh, setLow,setMid,setArray,setResult,setExecutionTime } from "../redux/BinarySlice";
-import Output from "./Output";
+import { setHigh, setLow,setArray,setResult,setExecutionTime, incrementNoOfIterations, setNoOfIterations } from "../redux/BinarySlice";
 
 
 const Input = () => {
@@ -10,39 +9,44 @@ const Input = () => {
   const [elem, setElem] = useState("");
   const dispatch = useDispatch();
 
+  
   const handleInputArray= (e) => {
     const textFieldValue = e.target.value;
-    const testarray = textFieldValue.split(',').map((item) => parseInt(item.trim(), 10));
+    const testarray = textFieldValue.split(',').filter(item => item.trim() !== '').map((item) => parseInt(item.trim(), 10));
     setOutputArray(testarray);
     dispatch(setArray(testarray));
     }
 
   const binarySearch = (arr, elem) => {
+    const start = performance.now();
     dispatch(setArray(outputArray));
     let low= 0
-    dispatch(setLow(0));
+    dispatch(setLow(low));
     let high = arr.length-1
-    dispatch(setHigh(arr.length - 1));
+    dispatch(setHigh(high));
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     const searchIteration = async () => {
     while (low <= high) {
+      dispatch(incrementNoOfIterations(1));
       let mid = Math.floor((low+high)/2)
-      dispatch(setMid(mid));
       await delay(500);
       if (arr[mid] === elem) {
         dispatch(setLow(mid));
         dispatch(setHigh(mid));
         dispatch(setResult(mid));
+        const end = performance.now();
+        const time = end - start;
+        dispatch(setExecutionTime(time));
         return mid;
       } else if (arr[mid] < elem) {
         low = mid + 1;
-        dispatch(setLow(mid+1));
+        dispatch(setLow(low));
       } else {
         high = mid - 1;
-        dispatch(setHigh(mid-1))
+        dispatch(setHigh(high))
       }
     }
-
+    dispatch(setResult(-1));
     return -1;
     };
     return searchIteration();
@@ -50,12 +54,9 @@ const Input = () => {
 
   const handleSearch = () => {
     const targetNumber = parseInt(elem, 10);
-    const start = performance.now();
+    dispatch(setNoOfIterations());
     const index = binarySearch(outputArray, targetNumber);
     setResult(index);
-    const end = performance.now();
-    const time = end - start;
-    dispatch(setExecutionTime(time));
   };
 
   return (
@@ -76,7 +77,6 @@ const Input = () => {
         /><br/><br/>
         <button onClick={handleSearch}>Search</button>
       </div>
-      <Output />
     </div>
   );
 };
