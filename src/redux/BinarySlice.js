@@ -27,7 +27,7 @@ const BinarySlice = createSlice({
             state.executionTime = action.payload
         },
         setNoOfIterations: (state,action) => {
-            state.noOfIterations = action.payload
+            state.noOfIterations = 0
         },
         incrementNoOfIterations: (state,action)=> {
             state.noOfIterations += action.payload

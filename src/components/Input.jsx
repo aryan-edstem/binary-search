@@ -8,11 +8,11 @@ const Input = () => {
   const [outputArray, setOutputArray] = useState()
   const [elem, setElem] = useState("");
   const dispatch = useDispatch();
-  dispatch(setNoOfIterations(0));
+
   
   const handleInputArray= (e) => {
     const textFieldValue = e.target.value;
-    const testarray = textFieldValue.split(',').map((item) => parseInt(item.trim(), 10));
+    const testarray = textFieldValue.split(',').filter(item => item.trim() !== '').map((item) => parseInt(item.trim(), 10));
     setOutputArray(testarray);
     dispatch(setArray(testarray));
     }
@@ -46,7 +46,7 @@ const Input = () => {
         dispatch(setHigh(high))
       }
     }
-
+    dispatch(setResult(-1));
     return -1;
     };
     return searchIteration();
@@ -54,13 +54,9 @@ const Input = () => {
 
   const handleSearch = () => {
     const targetNumber = parseInt(elem, 10);
-    const start = performance.now();
-    dispatch(setNoOfIterations(0));
+    dispatch(setNoOfIterations());
     const index = binarySearch(outputArray, targetNumber);
     setResult(index);
-    const end = performance.now();
-    const time = end - start;
-    dispatch(setExecutionTime(time));
   };
 
   return (

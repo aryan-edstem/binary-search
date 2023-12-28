@@ -11,8 +11,7 @@ const Output = () => {
 
   return (
     <>
-      <p>Output Array : </p>
-      <div>
+      <label>Output</label>
         <div className="array-container">
           {outputArray?.map((value, index) => (
             <div
@@ -33,7 +32,6 @@ const Output = () => {
           <br />
           No.of iterations: {count}
         </label>
-      </div>
     </>
   );
 };
