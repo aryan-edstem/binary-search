@@ -10,7 +10,7 @@ const Output = () => {
   const count = useSelector((state)=>state.binary.noOfIterations)
 
   return (
-    <>
+    <div className="output-container">
       <label>Output</label>
         <div className="array-container">
           {outputArray?.map((value, index) => (
@@ -32,7 +32,7 @@ const Output = () => {
           <br />
           No.of iterations: {count}
         </label>
-    </>
+    </div>
   );
 };
 

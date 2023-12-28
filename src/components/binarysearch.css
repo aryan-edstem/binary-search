@@ -4,11 +4,16 @@ body{
     background-color: #4caf50;
 }
 
-.container {
+.input-container,.output-container {
   display: flex;
   flex-direction: column;
-  max-width: 600px;
-  margin: auto;
+  width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .input-text {
@@ -49,15 +54,22 @@ button {
   margin-bottom: 10px;
 }   
 
+.output-container{
+  width: 90%; 
+  background-color: aqua;
+  padding: 5px;
+  margin: 20px auto;
+}
+
 .array-container{
     display: flex;
     justify-content: center;
-    padding: 20px;
-    width: 70%;
+    padding: 10px;
+    width: 90%;
     height: 150px;
     flex-wrap: wrap;
     overflow-y: scroll;
-    margin: 20px auto;
+    margin: 10px auto;
   }
  
 .array-box {

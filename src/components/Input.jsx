@@ -60,7 +60,7 @@ const Input = () => {
   };
 
   return (
-    <div className="container">
+    <div className="input-container">
         <div className="input-text">
             <label>Input Sorted Array</label>
             <textarea
