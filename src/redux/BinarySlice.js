@@ -4,11 +4,11 @@ const BinarySlice = createSlice({
     name:"binarySearch",
     initialState: {
         low: 0,
-        mid: 0,
         high: 1000,
         array:[],
         result:-1,
-        executionTime:0
+        executionTime:0,
+        noOfIterations:0
     },
     reducers: {
         setLow: (state,action) =>{
@@ -16,9 +16,6 @@ const BinarySlice = createSlice({
         },
         setHigh: (state,action) => {
             state.high = action.payload
-        },
-        setMid: (state,action) => {
-            state.mid = action.payload
         },
         setArray: (state,action) =>{
             state.array = action.payload
@@ -28,9 +25,15 @@ const BinarySlice = createSlice({
         },
         setExecutionTime: (state,action) => {
             state.executionTime = action.payload
+        },
+        setNoOfIterations: (state,action) => {
+            state.noOfIterations = action.payload
+        },
+        incrementNoOfIterations: (state,action)=> {
+            state.noOfIterations += action.payload
         }
     }
 })
 
-export const {setLow,setHigh,setMid,setArray,setResult,setExecutionTime} = BinarySlice.actions
+export const {setLow,setHigh,setArray,setResult,setExecutionTime,setNoOfIterations,incrementNoOfIterations} = BinarySlice.actions
 export default BinarySlice.reducer

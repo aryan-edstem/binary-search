@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import './binarysearch.css';
 const Output = () => {
   const low = useSelector((state) => state.binary.low);
-  const mid = useSelector((state) => state.binary.mid);
   const high = useSelector((state) => state.binary.high);
   const outputArray = useSelector((state) => state.binary.array);
   const result = useSelector((state)=>state.binary.result);
-  const time = useSelector((state)=> state.binary.executionTime)
+  const time = useSelector((state)=> state.binary.executionTime);
+  const count = useSelector((state)=>state.binary.noOfIterations)
 
   return (
     <>
@@ -30,6 +30,8 @@ const Output = () => {
           {result !== -1 ? `Found at position ${result + 1}` : "Not Found"}{" "}
           <br />
           Elapsed time: {time} milliseconds
+          <br />
+          No.of iterations: {count}
         </label>
       </div>
     </>
