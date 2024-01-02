@@ -38,7 +38,7 @@ const Input = () => {
       while (low <= high) {
         dispatch(incrementNoOfIterations(1));
         let mid = Math.floor((low + high) / 2);
-        await delay(500);
+        //await delay(500);
         if (arr[mid] === elem) {
           dispatch(setLow(mid));
           dispatch(setHigh(mid));
@@ -63,7 +63,7 @@ const Input = () => {
 
   const handleSearch = () => {
     const targetNumber = parseInt(elem, 10);
-    dispatch(setNoOfIterations());
+    dispatch(setNoOfIterations(0));
     const index = binarySearch(outputArray, targetNumber);
     setResult(index);
   };
